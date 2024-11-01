@@ -33,7 +33,6 @@ router.post("/", (req, res) => {
           });
         });
     } else {
-      // City already exists in database
       res.json({ result: false, error: "City already saved" });
     }
   });
