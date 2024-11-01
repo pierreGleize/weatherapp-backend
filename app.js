@@ -7,7 +7,7 @@ var logger = require("morgan");
 
 require("./models/connection");
 
-var indexRouter = require("./routes/index");
+// var indexRouter = require("./routes/index");
 var weatherRouter = require("./routes/weather");
 const userRouter = require("./routes/users");
 
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+// app.use("/", indexRouter);
 app.use("/weather", weatherRouter);
 app.use("/users", userRouter);
 
