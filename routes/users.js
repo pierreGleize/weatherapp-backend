@@ -26,16 +26,17 @@ router.post("/signup", async (req, res) => {
 });
 
 router.post("/signin", async (req, res) => {
-  const foundEmail = await User.findOne({
+  const foundUser = await User.findOne({
     email: req.body.email,
-  });
-  const foundPassword = await User.findOne({
     password: req.body.password,
   });
+  // const foundPassword = await User.findOne({
+  //   password: req.body.password,
+  // });
   if (!checkBody(req.body, ["email", "password"])) {
     res.json({ result: false, error: "Missing or empty fields" });
     return;
-  } else if (!foundEmail || !foundPassword) {
+  } else if (!foundUser) {
     res.json({ result: false, error: "User not found" });
   } else {
     res.json({ result: true });
