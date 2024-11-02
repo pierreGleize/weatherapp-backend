@@ -20,7 +20,7 @@ router.post("/signup", async (req, res) => {
     res.json({ result: false, error: "User already exists" });
   } else {
     newUser.save().then((data) => {
-      res.json({ result: true });
+      res.json({ result: true, newUser: newUser });
     });
   }
 });
