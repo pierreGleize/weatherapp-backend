@@ -39,7 +39,7 @@ router.post("/signin", async (req, res) => {
   } else if (!foundUser) {
     res.json({ result: false, error: "User not found" });
   } else {
-    res.json({ result: true });
+    res.json({ result: true, user: foundUser });
   }
 });
 
