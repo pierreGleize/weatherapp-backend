@@ -6,7 +6,7 @@ const { checkBody } = require("../modules/checkBody");
 
 router.post("/signup", async (req, res) => {
   const emailAllReadyExist = await User.findOne({
-    email: { $regex: new RegExp(req.body.email) },
+    email: req.body.email,
   });
   const newUser = new User({
     name: req.body.name,
@@ -27,10 +27,10 @@ router.post("/signup", async (req, res) => {
 
 router.post("/signin", async (req, res) => {
   const foundEmail = await User.findOne({
-    email: { $regex: new RegExp(req.body.email) },
+    email: req.body.email,
   });
   const foundPassword = await User.findOne({
-    password: { $regex: new RegExp(req.body.password) },
+    password: req.body.password,
   });
   if (!checkBody(req.body, ["email", "password"])) {
     res.json({ result: false, error: "Missing or empty fields" });
