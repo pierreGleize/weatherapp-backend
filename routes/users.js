@@ -5,7 +5,6 @@ const User = require("../models/users");
 const { checkBody } = require("../modules/checkBody");
 
 router.post("/signup", async (req, res) => {
-  const date = new Date();
   const emailAllReadyExist = await User.findOne({
     email: req.body.email,
   });
@@ -13,7 +12,7 @@ router.post("/signup", async (req, res) => {
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
-    date: date.getTime(),
+    date: new Date(),
   });
   if (!checkBody(req.body, ["name", "email", "password"])) {
     res.json({ result: false, error: "Missing or empty fields" });
@@ -28,7 +27,6 @@ router.post("/signup", async (req, res) => {
 });
 
 router.post("/signin", async (req, res) => {
-  const date = new Date();
   const foundUser = await User.findOne({
     email: req.body.email,
     password: req.body.password,
@@ -42,7 +40,7 @@ router.post("/signin", async (req, res) => {
   } else if (!foundUser) {
     res.json({ result: false, error: "User not found" });
   } else {
-    res.json({ result: true, user: foundUser, date: date.getTime() });
+    res.json({ result: true, user: foundUser, date: new Date() });
   }
 });
 
