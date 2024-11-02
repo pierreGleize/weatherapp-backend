@@ -5,6 +5,7 @@ const User = require("../models/users");
 const { checkBody } = require("../modules/checkBody");
 
 router.post("/signup", async (req, res) => {
+  const date = new Date();
   const emailAllReadyExist = await User.findOne({
     email: req.body.email,
   });
@@ -20,12 +21,13 @@ router.post("/signup", async (req, res) => {
     res.json({ result: false, error: "User already exists" });
   } else {
     newUser.save().then((data) => {
-      res.json({ result: true, newUser: newUser });
+      res.json({ result: true, newUser: newUser, date: date.getTime() });
     });
   }
 });
 
 router.post("/signin", async (req, res) => {
+  const date = new Date();
   const foundUser = await User.findOne({
     email: req.body.email,
     password: req.body.password,
@@ -39,7 +41,7 @@ router.post("/signin", async (req, res) => {
   } else if (!foundUser) {
     res.json({ result: false, error: "User not found" });
   } else {
-    res.json({ result: true, user: foundUser });
+    res.json({ result: true, user: foundUser, date: date.getTime() });
   }
 });
 
