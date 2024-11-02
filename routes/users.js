@@ -13,6 +13,7 @@ router.post("/signup", async (req, res) => {
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
+    date: date.getTime(),
   });
   if (!checkBody(req.body, ["name", "email", "password"])) {
     res.json({ result: false, error: "Missing or empty fields" });
@@ -21,7 +22,7 @@ router.post("/signup", async (req, res) => {
     res.json({ result: false, error: "User already exists" });
   } else {
     newUser.save().then((data) => {
-      res.json({ result: true, newUser: newUser, date: date.getTime() });
+      res.json({ result: true, newUser: newUser });
     });
   }
 });
